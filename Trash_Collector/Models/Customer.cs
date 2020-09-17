@@ -26,10 +26,5 @@ namespace Trash_Collector.Models
         public string SuspendEndDate { get; set; }
 
 
-
-
-
-
-
     }
 }
