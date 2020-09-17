@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Trash_Collector.Data;
 
 namespace Trash_Collector.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200917180250_AddCustomerRoletoUserRoles")]
+    partial class AddCustomerRoletoUserRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,17 +50,10 @@ namespace Trash_Collector.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "03d3f57c-8087-47f1-ab1e-c1158b03f0fe",
-                            ConcurrencyStamp = "176a4895-2950-48b9-befd-8bd12712644c",
+                            Id = "3db06c0a-23af-446b-a3b6-26177d79c27d",
+                            ConcurrencyStamp = "c7f251f0-17d1-4ba9-adf7-95f21e2e3cc4",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
-                        },
-                        new
-                        {
-                            Id = "ba573863-6ae3-4755-9d0b-2e98ca64fb0f",
-                            ConcurrencyStamp = "9ea0dd98-4140-4390-a29a-58834a060b01",
-                            Name = "Employee",
-                            NormalizedName = "EMPLOYEE"
                         });
                 });
 
