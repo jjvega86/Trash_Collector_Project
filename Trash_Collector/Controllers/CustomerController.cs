@@ -25,7 +25,7 @@ namespace Trash_Collector.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var customer = _context.Customers.Include(m => m.PickUpDay).Where(c => c.IdentityUserId == userId).SingleOrDefault();
 
             if (customer == null)
             {
@@ -46,8 +46,8 @@ namespace Trash_Collector.Controllers
             }
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
-           
+            var customer = _context.Customers.Include(m => m.PickUpDay).Where(c => c.IdentityUserId == userId).SingleOrDefault();
+
 
             if (customer == null)
             {
@@ -68,7 +68,7 @@ namespace Trash_Collector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,StreetAddress,City,State,ZipCode,CurrentBalance,PickupDay,IsSuspended,SuspendStartDate,SuspendEndDate")] Customer customer)
+        public async Task<IActionResult> Create(Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +102,7 @@ namespace Trash_Collector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,StreetAddress,City,State,ZipCode,CurrentBalance,PickupDay,IsSuspended,SuspendStartDate,SuspendEndDate")] Customer customer)
+        public async Task<IActionResult> Edit(int id, Customer customer)
         {
             if (id != customer.Id)
             {

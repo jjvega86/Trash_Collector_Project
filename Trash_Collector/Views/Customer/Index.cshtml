@@ -5,11 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Dashboard</h1>
+<p>Welcome to your dashboard!</p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -35,7 +33,7 @@
                 @Html.DisplayNameFor(model => model.CurrentBalance)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PickupDay)
+                @Html.DisplayNameFor(model => model.PickUpDayId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsSuspended)
@@ -74,7 +72,7 @@
                 @Html.DisplayFor(modelItem => item.CurrentBalance)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PickupDay)
+                @Html.DisplayFor(modelItem => item.PickUpDayId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsSuspended)
@@ -86,9 +84,7 @@
                 @Html.DisplayFor(modelItem => item.SuspendEndDate)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit Profile</a>
             </td>
         </tr>
 }

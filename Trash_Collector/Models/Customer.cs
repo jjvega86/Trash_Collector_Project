@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -37,8 +38,12 @@ namespace Trash_Collector.Models
         public double CurrentBalance { get; set; } // monthly balance - how would this show past due balance for a new month?
 
         [Display(Name = "Pickup Day")]
+        public int PickUpDayId { get; set; }
+        public PickUpDay PickUpDay { get; set; }
 
-        public string PickupDay { get; set; }
+        public SelectList Days { get; set; }
+
+      
 
         public bool IsSuspended { get; set; }
         public string SuspendStartDate { get; set; }
@@ -50,4 +55,6 @@ namespace Trash_Collector.Models
         public IdentityUser IdentityUser { get; set; }
 
     }
+
+  
 }

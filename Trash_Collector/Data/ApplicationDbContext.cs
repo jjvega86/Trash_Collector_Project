@@ -12,6 +12,7 @@ namespace Trash_Collector.Data
     {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<PickUpDay> PickUpDays { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -40,6 +41,36 @@ namespace Trash_Collector.Data
                         NormalizedName = "EMPLOYEE"
                     }
 
+
+                );
+
+            builder.Entity<PickUpDay>()
+                .HasData(
+                new PickUpDay
+                {
+                    Id = 1,
+                    Date = "Monday"
+                },
+                new PickUpDay
+                {
+                    Id = 2,
+                    Date = "Tuesday"
+                },
+                new PickUpDay
+                {
+                    Id = 3,
+                    Date = "Wednesday"
+                },
+                new PickUpDay
+                {
+                    Id = 4,
+                    Date = "Thursday"
+                },
+                new PickUpDay
+                {
+                    Id = 5,
+                    Date = "Friday"
+                }
 
                 );
 
