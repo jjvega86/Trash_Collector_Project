@@ -12,15 +12,32 @@ namespace Trash_Collector.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Display(Name = "First Name")]
         public string FirstName { get; set; } // how to parse this from user registration from the Name input?
+
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Display(Name = "Street Address")]
+
         public string StreetAddress { get; set; }
+
         public string City { get; set; }
+
+
         public string State { get; set; }
+
+        [Display(Name = "Zip Code")]
+
         public int ZipCode { get; set; }
 
+        [Display(Name = "Current Balance")]
+
         public double CurrentBalance { get; set; } // monthly balance - how would this show past due balance for a new month?
+
+        [Display(Name = "Pickup Day")]
+
         public string PickupDay { get; set; }
 
         public bool IsSuspended { get; set; }
