@@ -61,9 +61,9 @@ namespace Trash_Collector.Controllers
         public IActionResult Create()
         {
             var days = _context.PickUpDays.ToList();
-            Customer customer = new Customer();
+            Customer customer = new Customer()
             {
-                customer.Days = new SelectList(days, "Id", "Name");
+                Days = new SelectList(days, "Id", "Date")
             };
 
             return View(customer);
