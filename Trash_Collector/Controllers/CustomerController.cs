@@ -33,7 +33,7 @@ namespace Trash_Collector.Controllers
 
             }
 
-            return View(await _context.Customers.ToListAsync());
+            return View("Details");
 
         }
 
@@ -60,7 +60,13 @@ namespace Trash_Collector.Controllers
         // GET: Customer/Create
         public IActionResult Create()
         {
-            return View();
+            var days = _context.PickUpDays.ToList();
+            Customer customer = new Customer();
+            {
+                customer.Days = new SelectList(days, "Id", "Name");
+            };
+
+            return View(customer);
         }
 
         // POST: Customer/Create
