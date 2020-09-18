@@ -5,9 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
-
-<h4>Customer</h4>
+<h1>Welcome</h1>
+<p>Please enter your information below to sign up for service!</p>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -44,30 +43,12 @@
                 <span asp-validation-for="ZipCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CurrentBalance" class="control-label"></label>
-                <input asp-for="CurrentBalance" class="form-control" />
-                <span asp-validation-for="CurrentBalance" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="PickupDay" class="control-label"></label>
                 <input asp-for="PickupDay" class="form-control" />
                 <span asp-validation-for="PickupDay" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsSuspended" /> @Html.DisplayNameFor(model => model.IsSuspended)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="SuspendStartDate" class="control-label"></label>
-                <input asp-for="SuspendStartDate" class="form-control" />
-                <span asp-validation-for="SuspendStartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SuspendEndDate" class="control-label"></label>
-                <input asp-for="SuspendEndDate" class="form-control" />
-                <span asp-validation-for="SuspendEndDate" class="text-danger"></span>
-            </div>
+           
+          
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
