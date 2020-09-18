@@ -12,7 +12,6 @@ using Trash_Collector.Models;
 
 namespace Trash_Collector.Controllers
 {
-    [Authorize(Roles = "Customer")]
     public class CustomerController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -25,7 +24,19 @@ namespace Trash_Collector.Controllers
         // GET: Customer
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customers.ToListAsync());
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+
+            if (customer == null)
+            {
+                return RedirectToAction(nameof(Create));
+
+            }
+            else
+            {
+                return View(await _context.Customers.ToListAsync());
+
+            }
         }
 
         // GET: Customer/Details/5

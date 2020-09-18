@@ -27,6 +27,7 @@ namespace Trash_Collector.Models
         public string SuspendStartDate { get; set; }
         public string SuspendEndDate { get; set; }
 
+
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
