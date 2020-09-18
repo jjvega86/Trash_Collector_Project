@@ -41,6 +41,8 @@ namespace Trash_Collector.Models
         public int PickUpDayId { get; set; }
         public PickUpDay PickUpDay { get; set; }
 
+        public string ExtraPickUpDay { get; set; }
+
         [NotMapped]
         public SelectList Days { get; set; }
 
