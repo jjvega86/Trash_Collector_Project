@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using Trash_Collector.Models;
 
 namespace Trash_Collector.Controllers
 {
+    [Authorize(Roles = "Customer")]
     public class CustomerController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -34,8 +36,11 @@ namespace Trash_Collector.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            //var customer = await _context.Customers
+            //    .FirstOrDefaultAsync(m => m.Id == id);
+
             if (customer == null)
             {
                 return NotFound();
