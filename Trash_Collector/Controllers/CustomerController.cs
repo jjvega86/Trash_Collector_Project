@@ -29,14 +29,12 @@ namespace Trash_Collector.Controllers
 
             if (customer == null)
             {
-                return RedirectToAction(nameof(Create));
+                return RedirectToAction("Create");
 
             }
-            else
-            {
-                return View(await _context.Customers.ToListAsync());
 
-            }
+            return View(await _context.Customers.ToListAsync());
+
         }
 
         // GET: Customer/Details/5
