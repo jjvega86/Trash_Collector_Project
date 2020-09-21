@@ -30,8 +30,16 @@ namespace Trash_Collector.Controllers
                 return RedirectToAction("Create");
 
             }
+            else
+            {
+                var customersInZipCode = _context.Customers.Where(c => c.ZipCode == employee.ZipCodeAssignment).ToList();
+                var today = DateTime.Now.DayOfWeek.ToString();
+                var customersInZipAndToday = customersInZipCode.Where(c => c.PickUpDay.Date == today && c.ExtraPickUpDay == DateTime.Today).ToList();
+                var customersWithoutSuspends = customersInZipAndToday.Where(c => c.IsSuspended == false).ToList();
+                return View(customersWithoutSuspends);
 
-            return View();
+            }
+
 
         }
 
