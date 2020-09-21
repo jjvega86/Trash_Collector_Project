@@ -21,7 +21,8 @@ namespace Trash_Collector.Controllers
             _context = context;
         }
 
-        // GET: Customer
+        // GET: Customer index. Global routing determines role every login, sends through to Index action
+        // Index action finds the currently logged in user and associated customer data, redirects to proper views.
         public IActionResult Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);

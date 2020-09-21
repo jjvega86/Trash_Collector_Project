@@ -21,7 +21,10 @@ namespace Trash_Collector.Models
         [Display(Name = "Assigned Customer Zip Code")]
         public int ZipCodeAssignment { get; set; }
 
-        [NotMapped]
-        public IEnumerable<Customer> Customers { get; set; }
+        [ForeignKey("IdentityUser")]
+        public string IdentityUserId { get; set; }
+        public IdentityUser IdentityUser { get; set; }
+
+
     }
 }
