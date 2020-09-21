@@ -37,9 +37,9 @@ namespace Trash_Collector.Controllers
             {
                 var customers = _context.Customers.Include(c => c.PickUpDay).ToList();
                 var customersInZipCode = customers.Where(c => c.ZipCode == employee.ZipCodeAssignment).ToList();
-                var today = DateTime.Now.DayOfWeek.ToString();
-                var customersInZipAndToday = customersInZipCode.Where(c => c.PickUpDay.Date == today).ToList();
-                //c.ExtraPickUpDay == DateTime.Today
+                var todayString = DateTime.Now.DayOfWeek.ToString();
+                var today = DateTime.Today;
+                var customersInZipAndToday = customersInZipCode.Where(c => c.PickUpDay.Date == todayString || c.ExtraPickUpDay == today).ToList();
                 var customersWithoutSuspends = customersInZipAndToday.Where(c => c.IsSuspended == false).ToList();
 
                 return View(customersWithoutSuspends);
