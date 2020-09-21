@@ -43,7 +43,6 @@ namespace Trash_Collector.Models
         public PickUpDay PickUpDay { get; set; }
 
         public DateTime? ExtraPickUpDay { get; set; }
-        public bool ExtraPickUpDayRequested { get; set; }
 
         [NotMapped]
         public SelectList Days { get; set; }

@@ -26,7 +26,6 @@ namespace Trash_Collector.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = _context.Employees.Where(c => c.IdentityUserId == userId).SingleOrDefault();
-            //I want to return a list of customers, filtered by today's day of week, employee zip code, extra pickups included, and excluding suspensions
 
             if (employee == null)
             {
