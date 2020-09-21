@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Trash_Collector.Data;
+using Trash_Collector.Models;
 
 namespace Trash_Collector.Controllers
 {
@@ -36,6 +37,7 @@ namespace Trash_Collector.Controllers
                 var today = DateTime.Now.DayOfWeek.ToString();
                 var customersInZipAndToday = customersInZipCode.Where(c => c.PickUpDay.Date == today && c.ExtraPickUpDay == DateTime.Today).ToList();
                 var customersWithoutSuspends = customersInZipAndToday.Where(c => c.IsSuspended == false).ToList();
+
                 return View(customersWithoutSuspends);
 
             }
@@ -54,13 +56,21 @@ namespace Trash_Collector.Controllers
         public ActionResult Create()
         {
             // I want to create the employee and choose which Zip Code they will cover in their pickups
+            var listofZipCodes = _context.Customers.Select(p => p.ZipCode).Distinct().ToList();
+            Employee employee = new Employee()
+            {
+
+            };
+
+
+
             return View();
         }
 
         // POST: EmployeeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Employee employee)
         {
             try
             {
