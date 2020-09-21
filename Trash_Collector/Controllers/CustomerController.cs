@@ -22,7 +22,7 @@ namespace Trash_Collector.Controllers
         }
 
         // GET: Customer
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
@@ -38,11 +38,10 @@ namespace Trash_Collector.Controllers
         }
 
         // GET: Customer/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
-            //var customer = _context.Customers.Include(m => m.PickUpDay).SingleOrDefault(m => m.IdentityUserId == userId);
+            var customer = _context.Customers.Include(m => m.PickUpDay).SingleOrDefault(m => m.IdentityUserId == userId);
 
             if (customer == null)
             {
@@ -65,34 +64,35 @@ namespace Trash_Collector.Controllers
         }
 
         // POST: Customer/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Customer customer)
+        public IActionResult Create(Customer customer)
         {
             if (ModelState.IsValid)
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 customer.IdentityUserId = userId;
                 _context.Add(customer);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             return View(customer);
         }
 
         // GET: Customer/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Include(m => m.PickUpDay).SingleOrDefault(m => m.IdentityUserId == userId);
+            var days = _context.PickUpDays.ToList();
+            customer.Days = new SelectList(days, "Id", "Date");
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var customer = await _context.Customers.FindAsync(id);
-            var days = _context.PickUpDays.ToList();
-            customer.Days = new SelectList(days, "Id", "Date");
+           
             if (customer == null)
             {
                 return NotFound();
@@ -101,12 +101,11 @@ namespace Trash_Collector.Controllers
         }
 
         // POST: Customer/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Customer customer)
+        public IActionResult Edit(int id, Customer customer)
         {
+
             if (id != customer.Id)
             {
                 return NotFound();
@@ -117,7 +116,7 @@ namespace Trash_Collector.Controllers
                 try
                 {
                     _context.Update(customer);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -136,15 +135,11 @@ namespace Trash_Collector.Controllers
         }
 
         // GET: Customer/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Include(m => m.PickUpDay).SingleOrDefault(m => m.IdentityUserId == userId);
 
-            var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {
                 return NotFound();
