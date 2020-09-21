@@ -54,10 +54,22 @@
             @Html.DisplayFor(model => model.CurrentBalance)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PickUpDayId)
+            @Html.DisplayNameFor(model => model.PickUpDay)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PickUpDayId)
+            @Html.DisplayFor(model => model.PickUpDay.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ExtraPickUpDay)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ExtraPickUpDay)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ExtraPickUpDayRequested)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ExtraPickUpDayRequested)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IsSuspended)
@@ -77,9 +89,15 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.SuspendEndDate)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdentityUser)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdentityUser.Id)
+        </dd>
     </dl>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to Dashboard</a>
+    <a asp-action="Index">Back to List</a>
 </div>
