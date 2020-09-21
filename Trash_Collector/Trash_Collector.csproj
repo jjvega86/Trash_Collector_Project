@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200921152227_ChangedExtraPickUpDayDataTypeToDateTime.cs" />
+    <Compile Remove="Migrations\20200921152227_ChangedExtraPickUpDayDataTypeToDateTime.Designer.cs" />
+    <Compile Remove="Migrations\20200921152445_ChangedExtrPickupDayDataType.cs" />
+    <Compile Remove="Migrations\20200921152445_ChangedExtrPickupDayDataType.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.8" />

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Trash_Collector.Data;
 
 namespace Trash_Collector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200921153259_DateTimeNowNullable")]
+    partial class DateTimeNowNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,22 +46,6 @@ namespace Trash_Collector.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "803d2b02-ffb4-403b-921b-2020dc483af6",
-                            ConcurrencyStamp = "66c75f45-38b3-4253-92aa-7f4c7fc7ffb8",
-                            Name = "Customer",
-                            NormalizedName = "CUSTOMER"
-                        },
-                        new
-                        {
-                            Id = "dd7774ed-42bf-4150-9977-6940b0c05bc6",
-                            ConcurrencyStamp = "8333afcf-d7b4-44eb-90c3-2a5d823b1458",
-                            Name = "Employee",
-                            NormalizedName = "EMPLOYEE"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -323,33 +309,6 @@ namespace Trash_Collector.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PickUpDays");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Date = "Monday"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Date = "Tuesday"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Date = "Wednesday"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Date = "Thursday"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Date = "Friday"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

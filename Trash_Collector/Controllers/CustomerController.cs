@@ -40,9 +40,6 @@ namespace Trash_Collector.Controllers
         // GET: Customer/Details/5
         public IActionResult Details(Customer customer)
         {
-            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //var customer = _context.Customers.Include(m => m.PickUpDay).SingleOrDefault(m => m.IdentityUserId == userId);
-
             if (customer == null)
             {
                 return NotFound();
@@ -117,8 +114,9 @@ namespace Trash_Collector.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
+
             return View(customer);
         }
 
