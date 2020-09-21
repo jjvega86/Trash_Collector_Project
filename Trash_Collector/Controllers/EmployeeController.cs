@@ -5,6 +5,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Trash_Collector.Data;
 using Trash_Collector.Models;
 
@@ -33,9 +35,11 @@ namespace Trash_Collector.Controllers
             }
             else
             {
-                var customersInZipCode = _context.Customers.Where(c => c.ZipCode == employee.ZipCodeAssignment).ToList();
+                var customers = _context.Customers.Include(c => c.PickUpDay).ToList();
+                var customersInZipCode = customers.Where(c => c.ZipCode == employee.ZipCodeAssignment).ToList();
                 var today = DateTime.Now.DayOfWeek.ToString();
-                var customersInZipAndToday = customersInZipCode.Where(c => c.PickUpDay.Date == today && c.ExtraPickUpDay == DateTime.Today).ToList();
+                var customersInZipAndToday = customersInZipCode.Where(c => c.PickUpDay.Date == today).ToList();
+                //c.ExtraPickUpDay == DateTime.Today
                 var customersWithoutSuspends = customersInZipAndToday.Where(c => c.IsSuspended == false).ToList();
 
                 return View(customersWithoutSuspends);
@@ -56,15 +60,10 @@ namespace Trash_Collector.Controllers
         public ActionResult Create()
         {
             // I want to create the employee and choose which Zip Code they will cover in their pickups
-            var listofZipCodes = _context.Customers.Select(p => p.ZipCode).Distinct().ToList();
-            Employee employee = new Employee()
-            {
+            //var listofZipCodes = _context.Customers.Select(p => p.ZipCode).Distinct().ToList();
+            Employee employee = new Employee();
+            return View(employee);
 
-            };
-
-
-
-            return View();
         }
 
         // POST: EmployeeController/Create
@@ -74,11 +73,15 @@ namespace Trash_Collector.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                employee.IdentityUserId = userId;
+                _context.Add(employee);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(employee);
             }
         }
 

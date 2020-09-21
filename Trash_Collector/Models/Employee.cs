@@ -27,8 +27,8 @@ namespace Trash_Collector.Models
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
 
-        [NotMapped]
-        SelectList ZipCodeOptions { get; set; }
+        //[NotMapped]
+        //public SelectList ZipCodeOptions { get; set; }
 
 
 
