@@ -95,29 +95,19 @@ namespace Trash_Collector.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Customer customer)
-        {
-            if (ModelState.IsValid)
+        {  
+            try
             {
-                try
-                {
-                    _context.Update(customer);
-                    _context.SaveChanges();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CustomerExists(customer.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _context.Update(customer);
+                _context.SaveChanges();
+                return RedirectToAction("Details", customer);
+            }
+            catch
+            {
                 return RedirectToAction("Index");
+
             }
 
-            return View(customer);
         }
 
         // GET: Customer/Delete/5

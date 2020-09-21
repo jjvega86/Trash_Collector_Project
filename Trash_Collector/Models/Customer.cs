@@ -37,6 +37,7 @@ namespace Trash_Collector.Models
 
         public double CurrentBalance { get; set; } // monthly balance - how would this show past due balance for a new month?
 
+        [ForeignKey("PickUpDay")]
         [Display(Name = "Pickup Day")]
         public int PickUpDayId { get; set; }
         public PickUpDay PickUpDay { get; set; }

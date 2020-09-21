@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Trash_Collector.Migrations
 {
-    public partial class Reset : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -194,6 +194,8 @@ namespace Trash_Collector.Migrations
                     ZipCode = table.Column<int>(nullable: false),
                     CurrentBalance = table.Column<double>(nullable: false),
                     PickUpDayId = table.Column<int>(nullable: false),
+                    ExtraPickUpDay = table.Column<DateTime>(nullable: true),
+                    ExtraPickUpDayRequested = table.Column<bool>(nullable: false),
                     IsSuspended = table.Column<bool>(nullable: false),
                     SuspendStartDate = table.Column<string>(nullable: true),
                     SuspendEndDate = table.Column<string>(nullable: true),
@@ -221,8 +223,8 @@ namespace Trash_Collector.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "e29e3d1d-2d77-40f0-89a4-30aff8765c99", "82720e98-e99b-4f7e-8b99-49b711f3e6d3", "Customer", "CUSTOMER" },
-                    { "307b649d-3cdc-46ce-bda1-bd03eceb7f67", "77111e53-3268-4e74-92ca-42e6a82d0cf4", "Employee", "EMPLOYEE" }
+                    { "578b8594-1cdf-4e17-a745-dc1aef29b808", "70b0d04a-2d93-4862-8ce6-e95385da6048", "Customer", "CUSTOMER" },
+                    { "07107200-dec0-44ac-b95a-c0fedb1981ac", "e5f35554-5672-49c5-9a32-5219021088a6", "Employee", "EMPLOYEE" }
                 });
 
             migrationBuilder.InsertData(
