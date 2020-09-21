@@ -25,7 +25,7 @@ namespace Trash_Collector.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _context.Customers.Include(m => m.PickUpDay).Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
 
             if (customer == null)
             {
@@ -33,21 +33,16 @@ namespace Trash_Collector.Controllers
 
             }
 
-            return View("Details");
+            return RedirectToAction("Details", customer.Id);
 
         }
 
         // GET: Customer/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _context.Customers.Include(m => m.PickUpDay).Where(c => c.IdentityUserId == userId).SingleOrDefault();
-
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            //var customer = _context.Customers.Include(m => m.PickUpDay).SingleOrDefault(m => m.IdentityUserId == userId);
 
             if (customer == null)
             {
@@ -96,6 +91,8 @@ namespace Trash_Collector.Controllers
             }
 
             var customer = await _context.Customers.FindAsync(id);
+            var days = _context.PickUpDays.ToList();
+            customer.Days = new SelectList(days, "Id", "Date");
             if (customer == null)
             {
                 return NotFound();
