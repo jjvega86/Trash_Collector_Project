@@ -51,8 +51,8 @@ namespace Trash_Collector.Models
       
 
         public bool IsSuspended { get; set; }
-        public string SuspendStartDate { get; set; }
-        public string SuspendEndDate { get; set; }
+        public DateTime? SuspendStartDate { get; set; }
+        public DateTime? SuspendEndDate { get; set; }
 
 
         [ForeignKey("IdentityUser")]

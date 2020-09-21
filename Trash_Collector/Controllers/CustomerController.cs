@@ -40,6 +40,7 @@ namespace Trash_Collector.Controllers
         // GET: Customer/Details/5
         public IActionResult Details(Customer customer)
         {
+            customer.PickUpDay = _context.PickUpDays.Find(customer.PickUpDayId);
             if (customer == null)
             {
                 return NotFound();
@@ -69,6 +70,7 @@ namespace Trash_Collector.Controllers
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 customer.IdentityUserId = userId;
+                customer.PickUpDay = _context.PickUpDays.Find(customer.PickUpDayId);
                 _context.Add(customer);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
