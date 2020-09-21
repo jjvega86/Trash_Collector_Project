@@ -33,15 +33,15 @@ namespace Trash_Collector.Controllers
 
             }
 
-            return RedirectToAction("Details", customer.Id);
+            return RedirectToAction("Details", customer);
 
         }
 
         // GET: Customer/Details/5
-        public IActionResult Details(int? id)
+        public IActionResult Details(Customer customer)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _context.Customers.Include(m => m.PickUpDay).SingleOrDefault(m => m.IdentityUserId == userId);
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var customer = _context.Customers.Include(m => m.PickUpDay).SingleOrDefault(m => m.IdentityUserId == userId);
 
             if (customer == null)
             {
@@ -82,35 +82,23 @@ namespace Trash_Collector.Controllers
         // GET: Customer/Edit/5
         public IActionResult Edit(int? id)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _context.Customers.Include(m => m.PickUpDay).SingleOrDefault(m => m.IdentityUserId == userId);
+            var customer = _context.Customers.SingleOrDefault(m => m.Id == id);
             var days = _context.PickUpDays.ToList();
             customer.Days = new SelectList(days, "Id", "Date");
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-
            
             if (customer == null)
             {
                 return NotFound();
             }
+
             return View(customer);
         }
 
         // POST: Customer/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Customer customer)
+        public IActionResult Edit(Customer customer)
         {
-
-            if (id != customer.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
@@ -135,7 +123,7 @@ namespace Trash_Collector.Controllers
         }
 
         // GET: Customer/Delete/5
-        public IActionResult Delete(int? id)
+        public IActionResult Delete()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customers.Include(m => m.PickUpDay).SingleOrDefault(m => m.IdentityUserId == userId);

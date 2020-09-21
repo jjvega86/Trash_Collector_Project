@@ -18,62 +18,62 @@ namespace Trash_Collector.Data
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+        //    base.OnModelCreating(builder);
 
-            builder.Entity<IdentityRole>()
-                .HasData(
-                    new IdentityRole
-                    {
-                        Name = "Customer",
-                        NormalizedName = "CUSTOMER"
-                    }
-
-
-                );
-
-            builder.Entity<IdentityRole>()
-                .HasData(
-                    new IdentityRole
-                    {
-                        Name = "Employee",
-                        NormalizedName = "EMPLOYEE"
-                    }
+        //    builder.Entity<IdentityRole>()
+        //        .HasData(
+        //            new IdentityRole
+        //            {
+        //                Name = "Customer",
+        //                NormalizedName = "CUSTOMER"
+        //            }
 
 
-                );
+        //        );
 
-            builder.Entity<PickUpDay>()
-                .HasData(
-                new PickUpDay
-                {
-                    Id = 1,
-                    Date = "Monday"
-                },
-                new PickUpDay
-                {
-                    Id = 2,
-                    Date = "Tuesday"
-                },
-                new PickUpDay
-                {
-                    Id = 3,
-                    Date = "Wednesday"
-                },
-                new PickUpDay
-                {
-                    Id = 4,
-                    Date = "Thursday"
-                },
-                new PickUpDay
-                {
-                    Id = 5,
-                    Date = "Friday"
-                }
+        //    builder.Entity<IdentityRole>()
+        //        .HasData(
+        //            new IdentityRole
+        //            {
+        //                Name = "Employee",
+        //                NormalizedName = "EMPLOYEE"
+        //            }
 
-                );
 
-        }
+        //        );
+
+        //    builder.Entity<PickUpDay>()
+        //        .HasData(
+        //        new PickUpDay
+        //        {
+        //            Id = 1,
+        //            Date = "Monday"
+        //        },
+        //        new PickUpDay
+        //        {
+        //            Id = 2,
+        //            Date = "Tuesday"
+        //        },
+        //        new PickUpDay
+        //        {
+        //            Id = 3,
+        //            Date = "Wednesday"
+        //        },
+        //        new PickUpDay
+        //        {
+        //            Id = 4,
+        //            Date = "Thursday"
+        //        },
+        //        new PickUpDay
+        //        {
+        //            Id = 5,
+        //            Date = "Friday"
+        //        }
+
+        //        );
+
+        //}
     }
 }
