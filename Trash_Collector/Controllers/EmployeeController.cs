@@ -118,6 +118,7 @@ namespace Trash_Collector.Controllers
             address.State = customer.State;
             address.ZipCode = customer.ZipCode;
 
+            address.FullAddress = customer.StreetAddress + customer.City + customer.State + customer.ZipCode.ToString();
 
             return View(address);
         }
