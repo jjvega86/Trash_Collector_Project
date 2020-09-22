@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Trash_Collector.Models.Customer>
+﻿@model Trash_Collector.Models.ViewModels.CustomersByPickUpDay
 
 @{
     ViewData["Title"] = "Filter";
@@ -6,48 +6,66 @@
 }
 
 <h1>Filter</h1>
-
+<form asp-action="Filter" method="post">
+    <div class="form-group">
+        <label asp-for="PickUpDaySelection"></label>
+        <select asp-for="PickUpDaySelection" class="form-control" asp-items="@Model.PickUpDaySelections"></select>
+        <span asp-validation-for="PickUpDaySelection" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                @*@Html.DisplayNameFor(model => model.Customers.FirstName)*@
+                First Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                @*@Html.DisplayNameFor(model => model.Customers.Last)*@
+                Last Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StreetAddress)
+                @*@Html.DisplayNameFor(model => model.StreetAddress)*@
+                Street Address
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.City)
+                @*@Html.DisplayNameFor(model => model.City)*@
+                City
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.State)
+                @*@Html.DisplayNameFor(model => model.State)*@
+                State
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ZipCode)
+                @*@Html.DisplayNameFor(model => model.ZipCode)*@
+                Zip Code
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CurrentBalance)
+                @*@Html.DisplayNameFor(model => model.CurrentBalance)*@
+                Current Balance
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PickUpDay)
+                @*@Html.DisplayNameFor(model => model.PickUpDay)*@
+                Pick Up Day
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ExtraPickUpDay)
+                @*@Html.DisplayNameFor(model => model.ExtraPickUpDay)*@
+                Extra Pick Up Day
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SuspendStartDate)
+                @*@Html.DisplayNameFor(model => model.SuspendStartDate)*@
+                Suspend Start Date
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SuspendEndDate)
+                @*@Html.DisplayNameFor(model => model.SuspendEndDate)*@
+                Suspend End Date
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Customers) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)

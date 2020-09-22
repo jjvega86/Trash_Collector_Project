@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Trash_Collector.Data;
 using Trash_Collector.Models;
+using Trash_Collector.Models.ViewModels;
 
 namespace Trash_Collector.Controllers
 {
@@ -51,12 +52,45 @@ namespace Trash_Collector.Controllers
         // GET: EmployeeController/Filter - this action pulls up a view with a drop down selectlist to allow filtering by Pick Up Day
         public ActionResult Filter()
         {
+            // make an instance of the viewmodel
+            CustomersByPickUpDay customersList = new CustomersByPickUpDay();
+
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = _context.Employees.Where(c => c.IdentityUserId == userId).SingleOrDefault();
-            var customers = _context.Customers.Include(c => c.PickUpDay).ToList();
-            var customersInZipCode = customers.Where(c => c.ZipCode == employee.ZipCodeAssignment).ToList();
 
-            return View(customersInZipCode);
+
+            // find and attach indivual properties of the viewmodel
+
+            var customers = _context.Customers.Include(c => c.PickUpDay).ToList();
+            customersList.Customers = customers.Where(c => c.ZipCode == employee.ZipCodeAssignment).ToList();
+
+            customersList.PickUpDaySelections = new SelectList(_context.PickUpDays, "Date", "Date");
+
+            return View(customersList);
+        }
+
+        //POST: EmployeeController/Filter
+        [HttpPost]
+        public ActionResult Filter(CustomersByPickUpDay customer)
+        {
+
+            //instance of view model to pass
+            //grabbing currently logged in employee
+
+            CustomersByPickUpDay customersList = new CustomersByPickUpDay();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context.Employees.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+
+            //use passed in string property of PickUpDaySelection to query database for only customers on that day
+            var selection = customer.PickUpDaySelection;
+            var customers = _context.Customers.Include(c => c.PickUpDay).ToList();
+            customersList.Customers = customers.Where(c => c.ZipCode == employee.ZipCodeAssignment && c.PickUpDay.Date == selection).ToList();
+            customersList.PickUpDaySelections = new SelectList(_context.PickUpDays, "Date", "Date");
+
+
+            //return to the original filter view, passing in the now filtered CustomersByPickUpDay view model
+            return View("Filter", customersList);
+
         }
 
         // GET: EmployeeController/Details/5
