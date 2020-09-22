@@ -106,8 +106,8 @@ namespace Trash_Collector.Controllers
             // Step 2: Build view X
             // Step 3: Write initial logic in Details action to display address X
             // Step 4: Research Google APIs and identify next steps to implement ***
-            // Step 5: Add a property to CustomerAddress view model that has all address properties concatenated
-            // Step 6: Add logic to concatenate address properties to FullAddress property that will be passed into view with rest of viewmodel
+            // Step 5: Add a property to CustomerAddress view model that has all address properties concatenated X
+            // Step 6: Add logic to concatenate address properties to FullAddress property that will be passed into view with rest of viewmodel X
 
             CustomerAddress address = new CustomerAddress();
 

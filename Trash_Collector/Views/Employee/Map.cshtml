@@ -44,34 +44,32 @@
 <div id="map" style="width:100%; height:400px"></div>
 
 @section scripts{
+    
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCb3d1Jb7e06yFVxKXS9EdB2O_ofBEarr0&callback=initMap&libraries=&v=weekly"
-            defer></script>
-    <script>
-        let map;
-        var address = @Html.DisplayFor(model => model.FullAddress);
-       
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCb3d1Jb7e06yFVxKXS9EdB2O_ofBEarr0&callback=initMap&libraries=&v=weekly"
+        defer></script>
+    <script type="text/javascript">
+    @*var address = @Html.DisplayFor(model => model.FullAddress);*@
+    let map;
 
-        var geocoder = new google.maps.Geocoder();
+    function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 8
+    });
+    }
 
-        geocoder.geocode({ 'address': address }, function (results, status) {
 
-            if (status == google.maps.GeocoderStatus.OK) {
-                var latitude = results[0].geometry.location.lat();
-                var longitude = results[0].geometry.location.lng();
-                alert(latitude);
-            }
-
-        });
-
-        function initMap() {
-            map = new google.maps.Map(document.getElementById("map"), {
-                //center: { lat: -34.397, lng: 150.644 },
-                center: { latitude, longitude },
-                zoom: 8
-            });
-        }
     </script>
+
+
+
+
+
+
+
+
+
 
 
 }
