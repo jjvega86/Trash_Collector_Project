@@ -50,6 +50,7 @@
     <script>
         let map;
         var address = @Html.DisplayFor(model => model.FullAddress);
+       
 
         var geocoder = new google.maps.Geocoder();
 
@@ -60,6 +61,7 @@
                 var longitude = results[0].geometry.location.lng();
                 alert(latitude);
             }
+
         });
 
         function initMap() {

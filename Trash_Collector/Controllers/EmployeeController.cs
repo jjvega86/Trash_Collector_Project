@@ -117,9 +117,8 @@ namespace Trash_Collector.Controllers
             address.City = customer.City;
             address.State = customer.State;
             address.ZipCode = customer.ZipCode;
-
-            address.FullAddress = customer.StreetAddress + customer.City + customer.State + customer.ZipCode.ToString();
-
+            string stringZipCode = address.ZipCode.ToString();
+            address.FullAddress = $"{customer.StreetAddress} {customer.City} {customer.State} {stringZipCode}";
             return View(address);
         }
 
