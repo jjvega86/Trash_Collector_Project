@@ -17,6 +17,8 @@ namespace Trash_Collector.Models.ViewModels
         [Display(Name = "Zip Code")]
         public int ZipCode { get; set; }
 
-        public string FullAddress { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
+
     }
 }

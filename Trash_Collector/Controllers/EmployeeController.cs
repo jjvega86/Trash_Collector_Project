@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Trash_Collector.Data;
 using Trash_Collector.Models;
 using Trash_Collector.Models.ViewModels;
+using GoogleMaps.LocationServices;
 
 namespace Trash_Collector.Controllers
 {
@@ -110,15 +111,19 @@ namespace Trash_Collector.Controllers
             // Step 6: Add logic to concatenate address properties to FullAddress property that will be passed into view with rest of viewmodel X
 
             CustomerAddress address = new CustomerAddress();
-
+            var locationService = new GoogleLocationService();
             var customer = _context.Customers.Find(id);
 
             address.StreetAddress = customer.StreetAddress;
             address.City = customer.City;
             address.State = customer.State;
             address.ZipCode = customer.ZipCode;
-            string stringZipCode = address.ZipCode.ToString();
-            address.FullAddress = $"{customer.StreetAddress} {customer.City} {customer.State} {stringZipCode}";
+
+            var fullAddress = $"{address.StreetAddress} {address.City} {address.State} {address.ZipCode}";
+            var point = locationService.GetLatLongFromAddress(fullAddress);
+            address.Latitude = point.Latitude;
+            address.Longitude = point.Longitude;
+
             return View(address);
         }
 
