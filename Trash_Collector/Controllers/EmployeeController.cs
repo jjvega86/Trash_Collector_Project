@@ -109,6 +109,10 @@ namespace Trash_Collector.Controllers
         {
             try
             {
+                if(customer.ConfirmPickUp == true)
+                {
+                    customer.CurrentBalance += 100;
+                }
                 _context.Update(customer);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
