@@ -41,17 +41,22 @@
     <a asp-action="Filter">Back to Customer Filter</a>
 </div>
 <br />
-<div id="googleMap" style="width:100%; height:400px"></div>
+<div id="map" style="width:100%; height:400px"></div>
 
 @section scripts{
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap">
-        function myMap() {
-            var mapProp = {
-                center: new google.maps.LatLng(51.508742, -0.120850),
-                zoom: 5,
-            };
-            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCb3d1Jb7e06yFVxKXS9EdB2O_ofBEarr0&callback=initMap&libraries=&v=weekly"
+            defer></script>
+    <script>
+        let map;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8
+            });
         }
     </script>
+
 
 }
