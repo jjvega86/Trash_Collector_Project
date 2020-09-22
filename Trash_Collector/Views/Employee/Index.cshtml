@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Today's Route</h1>
 
 <p>
     <a asp-action="Filter">Filter By Pick Up Day</a>
@@ -93,7 +93,7 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Confirm Pickup</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">View Map</a> |
             </td>
         </tr>
 }

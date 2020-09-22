@@ -71,6 +71,7 @@ namespace Trash_Collector.Controllers
 
         //POST: EmployeeController/Filter
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Filter(CustomersByPickUpDay customer)
         {
 
@@ -97,6 +98,15 @@ namespace Trash_Collector.Controllers
         public ActionResult Details(int id)
         {
             // I want to select the customer profile and see their address with a pin on a map
+            // using an address view model that grabs all the relevant address properties from the customer
+            // I'll then pass in that viewmodel to a view that displays the address and a map with a pin
+            // using Google API
+
+            // Step 1: Build view model
+            // Step 2: Build view
+            // Step 3: Write initial logic in Details action to display address
+            // Step 4: Research Google APIs and identify next steps to implement
+
             return View();
         }
 

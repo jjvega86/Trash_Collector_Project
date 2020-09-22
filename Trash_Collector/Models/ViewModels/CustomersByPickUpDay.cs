@@ -11,9 +11,9 @@ namespace Trash_Collector.Models.ViewModels
     {
         public IEnumerable<Customer> Customers { get; set; }
 
-        [Display(Name = "Select the pick up day you would like to view!")]
         public SelectList PickUpDaySelections { get; set; }
 
+        [Display(Name = "Select the pick up day you would like to view!")]
         public string PickUpDaySelection { get; set; }
     }
 }
