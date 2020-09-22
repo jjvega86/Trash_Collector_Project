@@ -1,15 +1,12 @@
 ﻿@model IEnumerable<Trash_Collector.Models.Customer>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Filter";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Filter</h1>
 
-<p>
-    <a asp-action="Filter">Filter By Pick Up Day</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -77,7 +74,7 @@
                 @Html.DisplayFor(modelItem => item.CurrentBalance)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PickUpDay.Date)
+                @Html.DisplayFor(modelItem => item.PickUpDay.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ExtraPickUpDay)
@@ -92,7 +89,6 @@
                 @Html.DisplayFor(modelItem => item.SuspendEndDate)
             </td>
             @*<td>
-                <a asp-action="Confirm" asp-route-id="@item.Id">Confirm Pickup</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
             </td>*@
         </tr>

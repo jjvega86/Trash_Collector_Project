@@ -48,6 +48,14 @@ namespace Trash_Collector.Controllers
 
         }
 
+        // GET: EmployeeController/Filter - this action pulls up a view with a drop down selectlist to allow filtering by Pick Up Day
+        public ActionResult Filter()
+        {
+            var pickUpDays = _context.PickUpDays.ToList();
+            SelectList days = new SelectList(pickUpDays);
+            return View(days);
+        }
+
         // GET: EmployeeController/Details/5
         public ActionResult Details(int id)
         {
