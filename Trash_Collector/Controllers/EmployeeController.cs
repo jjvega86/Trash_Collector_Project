@@ -98,23 +98,24 @@ namespace Trash_Collector.Controllers
         // GET: EmployeeController/Edit/5
         public ActionResult Edit(int id)
         {
-            var customer = _context.Customers.Where(c => c.Id == id);
-            //I want to confirm that I've made the pickup for an employee
+            var customer = _context.Customers.Where(c => c.Id == id).Single();
             return View(customer);
         }
 
         // POST: EmployeeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Customer customer)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                _context.Update(customer);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View("Index");
             }
         }
     }
