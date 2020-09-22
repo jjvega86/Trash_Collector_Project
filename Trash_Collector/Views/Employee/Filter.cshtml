@@ -38,9 +38,6 @@
                 @Html.DisplayNameFor(model => model.ExtraPickUpDay)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsSuspended)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.SuspendStartDate)
             </th>
             <th>
@@ -74,13 +71,10 @@
                 @Html.DisplayFor(modelItem => item.CurrentBalance)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PickUpDay.Id)
+                @Html.DisplayFor(modelItem => item.PickUpDay.Date)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ExtraPickUpDay)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsSuspended)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SuspendStartDate)

@@ -51,9 +51,12 @@ namespace Trash_Collector.Controllers
         // GET: EmployeeController/Filter - this action pulls up a view with a drop down selectlist to allow filtering by Pick Up Day
         public ActionResult Filter()
         {
-            var pickUpDays = _context.PickUpDays.ToList();
-            SelectList days = new SelectList(pickUpDays);
-            return View(days);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context.Employees.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var customers = _context.Customers.Include(c => c.PickUpDay).ToList();
+            var customersInZipCode = customers.Where(c => c.ZipCode == employee.ZipCodeAssignment).ToList();
+
+            return View(customersInZipCode);
         }
 
         // GET: EmployeeController/Details/5
@@ -95,8 +98,9 @@ namespace Trash_Collector.Controllers
         // GET: EmployeeController/Edit/5
         public ActionResult Edit(int id)
         {
-            //I want to 
-            return View();
+            var customer = _context.Customers.Where(c => c.Id == id);
+            //I want to confirm that I've made the pickup for an employee
+            return View(customer);
         }
 
         // POST: EmployeeController/Edit/5
