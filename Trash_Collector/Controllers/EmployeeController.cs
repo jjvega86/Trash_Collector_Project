@@ -103,11 +103,21 @@ namespace Trash_Collector.Controllers
             // using Google API
 
             // Step 1: Build view model X
-            // Step 2: Build view 
+            // Step 2: Build view X
             // Step 3: Write initial logic in Details action to display address
             // Step 4: Research Google APIs and identify next steps to implement
 
-            return View();
+            CustomerAddress address = new CustomerAddress();
+
+            var customer = _context.Customers.Find(id);
+
+            address.StreetAddress = customer.StreetAddress;
+            address.City = customer.City;
+            address.State = customer.State;
+            address.ZipCode = customer.ZipCode;
+
+
+            return View(address);
         }
 
         // GET: EmployeeController/Create
