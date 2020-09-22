@@ -35,7 +35,7 @@ namespace Trash_Collector.Controllers
             else
             {
                 var customers = _context.Customers.Include(c => c.PickUpDay).ToList();
-                var customersInZipCode = customers.Where(c => c.ZipCode == employee.ZipCodeAssignment).ToList();
+                var customersInZipCode = customers.Where(c => c.ZipCode == employee.ZipCodeAssignment && c.ConfirmPickUp == false).ToList();
                 var todayString = DateTime.Now.DayOfWeek.ToString();
                 var today = DateTime.Today;
                 var customersInZipAndToday = customersInZipCode.Where(c => c.PickUpDay.Date == todayString || c.ExtraPickUpDay == today).ToList();
