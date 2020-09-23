@@ -5,15 +5,33 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Filter</h1>
-<form asp-action="Filter" method="post">
-    <div class="form-group">
-        <label asp-for="PickUpDaySelection"></label>
-        <select asp-for="PickUpDaySelection" class="form-control" asp-items="@Model.PickUpDaySelections"></select>
-        <span asp-validation-for="PickUpDaySelection" class="text-danger"></span>
+<br />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Welcome, WasteSpacer!</div>
+                <div class="card-body">
+                    <h4 class="card-title">About this Page</h4>
+                    <p class="card-text">You can use this Filter to view all of your customers by pickup day!</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 offset-1">
+            <form asp-action="Filter" method="post">
+                <div class="form-group">
+                    <label asp-for="PickUpDaySelection"></label>
+                    <select asp-for="PickUpDaySelection" class="form-control" asp-items="@Model.PickUpDaySelections"></select>
+                    <span asp-validation-for="PickUpDaySelection" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </form>
+        </div>
+
     </div>
-    <button type="submit" class="btn btn-primary">Filter</button>
-</form>
+</div>
+<br />
+
 <table class="table">
     <thead>
         <tr>
@@ -90,7 +108,9 @@
                 @Html.DisplayFor(modelItem => item.SuspendEndDate)
             </td>
             <td>
-                <a asp-action="Map" asp-route-id="@item.Id">View Map</a>
+                <form asp-action="Map" asp-route-id="@item.Id">
+                    <button type="submit" class="btn btn-outline-success">View Location Information</button>
+                </form>
             </td>
         </tr>
 }

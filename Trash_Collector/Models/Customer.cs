@@ -42,8 +42,13 @@ namespace Trash_Collector.Models
         public int PickUpDayId { get; set; }
         public PickUpDay PickUpDay { get; set; }
 
+        [Display(Name = "Extra Pickup Date")]
         public DateTime? ExtraPickUpDay { get; set; }
 
+        [NotMapped]
+        public DateTime? LastChargedDay {get; set;}
+
+        [Display(Name = "Check box to confirm pick up!")]
         public bool ConfirmPickUp { get; set; }
 
         [NotMapped]
@@ -52,7 +57,11 @@ namespace Trash_Collector.Models
       
 
         public bool IsSuspended { get; set; }
+
+        [Display(Name = "Suspension Start Date")]
         public DateTime? SuspendStartDate { get; set; }
+
+        [Display(Name = "Suspension End Date")]
         public DateTime? SuspendEndDate { get; set; }
 
 

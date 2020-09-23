@@ -52,13 +52,28 @@
     let map;
     var longitude = @Html.DisplayFor(model => model.Longitude);
     var latitude = @Html.DisplayFor(model => model.Latitude);
-    function initMap() {
+   
 
-    map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: latitude, lng: longitude },
-    zoom: 8
-    });
+    function initMap() {
+        var mapOptions = {
+            zoom: 15,
+            center: new google.maps.LatLng(latitude, longitude),
+            mapTypeId: 'roadmap'
+        };
+        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        var customerHomePosition = { lat: latitude, lng: longitude };
+        var marker = new google.maps.Marker({
+            position: customerHomePosition,
+            map: map,
+            title: 'Customer Home'
+        });
+
     }
+        
+
+
+        
 
 
     </script>

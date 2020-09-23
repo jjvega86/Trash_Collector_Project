@@ -1,7 +1,7 @@
 ﻿@model Trash_Collector.Models.Customer
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Confirm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Confirm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
 
@@ -20,28 +20,28 @@
 
             <input type="hidden" asp-for="LastName" />
 
-    
+
             <input type="hidden" asp-for="StreetAddress" />
 
-        
+
             <input type="hidden" asp-for="City" />
 
 
             <input type="hidden" asp-for="State" />
 
-          
+
             <input type="hidden" asp-for="ZipCode" />
 
-           
+
             <input type="hidden" asp-for="CurrentBalance" />
 
 
             <input type="hidden" asp-for="PickUpDayId" />
 
-          
+
             <input type="hidden" asp-for="ExtraPickUpDay" />
 
-           
+
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="ConfirmPickUp" /> @Html.DisplayNameFor(model => model.ConfirmPickUp)
@@ -50,18 +50,18 @@
 
             <input type="hidden" asp-for="IsSuspended" />
 
-          
+
 
             <input type="hidden" asp-for="SuspendStartDate" />
 
-           
+
 
             <input type="hidden" asp-for="SuspendEndDate" />
 
 
             <input type="hidden" asp-for="IdentityUserId" />
 
-           
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

@@ -28,6 +28,7 @@ namespace Trash_Collector.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = _context.Employees.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            ResetPickUpDayConfirmation();
 
             if (employee == null)
             {
@@ -40,8 +41,10 @@ namespace Trash_Collector.Controllers
                 var customersInZipCode = customers.Where(c => c.ZipCode == employee.ZipCodeAssignment && c.ConfirmPickUp == false).ToList();
                 var todayString = DateTime.Now.DayOfWeek.ToString();
                 var today = DateTime.Today;
+
+
                 var customersInZipAndToday = customersInZipCode.Where(c => c.PickUpDay.Date == todayString || c.ExtraPickUpDay == today).ToList();
-                var customersWithoutSuspends = customersInZipAndToday.Where(c => c.IsSuspended == false).ToList();
+                var customersWithoutSuspends = customersInZipAndToday.Where(c => (c.SuspendStartDate == null && c.SuspendEndDate == null) || c.SuspendStartDate >= today || c.SuspendEndDate <= today).ToList();
 
                 return View(customersWithoutSuspends);
 
@@ -76,42 +79,24 @@ namespace Trash_Collector.Controllers
         public ActionResult Filter(CustomersByPickUpDay customer)
         {
 
-            //instance of view model to pass
-            //grabbing currently logged in employee
-
             CustomersByPickUpDay customersList = new CustomersByPickUpDay();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = _context.Employees.Where(c => c.IdentityUserId == userId).SingleOrDefault();
 
-            //use passed in string property of PickUpDaySelection to query database for only customers on that day
             var selection = customer.PickUpDaySelection;
             var customers = _context.Customers.Include(c => c.PickUpDay).ToList();
             customersList.Customers = customers.Where(c => c.ZipCode == employee.ZipCodeAssignment && c.PickUpDay.Date == selection).ToList();
             customersList.PickUpDaySelections = new SelectList(_context.PickUpDays, "Date", "Date");
 
-
-            //return to the original filter view, passing in the now filtered CustomersByPickUpDay view model
             return View("Filter", customersList);
 
         }
 
-        // GET: EmployeeController/Map
         public ActionResult Map(int id)
-        {
-            // I want to select the customer profile and see their address with a pin on a map
-            // using an address view model that grabs all the relevant address properties from the customer
-            // I'll then pass in that viewmodel to a view that displays the address and a map with a pin
-            // using Google API
-
-            // Step 1: Build view model X
-            // Step 2: Build view X
-            // Step 3: Write initial logic in Details action to display address X
-            // Step 4: Research Google APIs and identify next steps to implement ***
-            // Step 5: Add a property to CustomerAddress view model that has all address properties concatenated X
-            // Step 6: Add logic to concatenate address properties to FullAddress property that will be passed into view with rest of viewmodel X
+        { 
 
             CustomerAddress address = new CustomerAddress();
-            var locationService = new GoogleLocationService("AIzaSyCb3d1Jb7e06yFVxKXS9EdB2O_ofBEarr0");
+            var locationService = new GoogleLocationService(apikey: "AIzaSyCb3d1Jb7e06yFVxKXS9EdB2O_ofBEarr0");
             var customer = _context.Customers.Find(id);
 
             address.StreetAddress = customer.StreetAddress;
@@ -127,20 +112,16 @@ namespace Trash_Collector.Controllers
             return View(address);
         }
 
-        // GET: EmployeeController/Create
-        public ActionResult Create()
+        public ActionResult Create() // GET
         {
-            // I want to create the employee and choose which Zip Code they will cover in their pickups
-            //var listofZipCodes = _context.Customers.Select(p => p.ZipCode).Distinct().ToList();
             Employee employee = new Employee();
             return View(employee);
 
         }
 
-        // POST: EmployeeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Employee employee)
+        public ActionResult Create(Employee employee) // POST
         {
             try
             {
@@ -156,23 +137,24 @@ namespace Trash_Collector.Controllers
             }
         }
 
-        // GET: EmployeeController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Confirm(int id)// GET
+
         {
             var customer = _context.Customers.Where(c => c.Id == id).Single();
             return View(customer);
         }
 
-        // POST: EmployeeController/Edit/5
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Customer customer)
+        public ActionResult Confirm(Customer customer)// POST
         {
             try
             {
                 if(customer.ConfirmPickUp == true)
                 {
                     customer.CurrentBalance += 100;
+                    customer.LastChargedDay = DateTime.Today;
                 }
                 _context.Update(customer);
                 _context.SaveChanges();
@@ -183,5 +165,22 @@ namespace Trash_Collector.Controllers
                 return View("Index");
             }
         }
+
+        private void ResetPickUpDayConfirmation()
+        {
+            var customers = _context.Customers.Include(m => m.PickUpDay).ToList();
+            DateTime today = DateTime.Today;
+            DateTime yesterday = today.AddDays(-1);
+
+            foreach(Customer customer in customers)
+            {
+                if(customer.LastChargedDay == yesterday)
+                {
+                    customer.ConfirmPickUp = false;
+                }
+            }
+        }
+
+
     }
 }
