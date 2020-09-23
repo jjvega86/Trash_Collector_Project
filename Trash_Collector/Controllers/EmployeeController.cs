@@ -111,7 +111,7 @@ namespace Trash_Collector.Controllers
             // Step 6: Add logic to concatenate address properties to FullAddress property that will be passed into view with rest of viewmodel X
 
             CustomerAddress address = new CustomerAddress();
-            var locationService = new GoogleLocationService();
+            var locationService = new GoogleLocationService("AIzaSyCb3d1Jb7e06yFVxKXS9EdB2O_ofBEarr0");
             var customer = _context.Customers.Find(id);
 
             address.StreetAddress = customer.StreetAddress;
