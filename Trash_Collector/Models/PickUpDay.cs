@@ -12,6 +12,7 @@ namespace Trash_Collector.Models
 
         public int Id { get; set; }
 
+        [Display(Name = "Pickup Day")]
         public string Date { get; set; }
 
 

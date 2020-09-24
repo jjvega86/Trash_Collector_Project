@@ -5,13 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container">
-    <h1>Today's Route</h1>
+    <h1 class="text-primary">Today's Route</h1>
     <br />
-    <p>
-        <a asp-action="Filter">Filter By Pick Up Day</a>
-    </p>
+    <form asp-action="Filter" method="get">
+        <button type="submit" class="btn btn-outline-info">View All Clients</button>
+    </form>
     <br />
-    <table class="table">
+    <table class="table text-center">
         <thead>
             <tr>
                 <th>
@@ -24,7 +24,7 @@
                     @Html.DisplayNameFor(model => model.CurrentBalance)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PickUpDay)
+                    @Html.DisplayNameFor(model => model.PickUpDay.Date)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ExtraPickUpDay)

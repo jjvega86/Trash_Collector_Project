@@ -34,6 +34,8 @@ namespace Trash_Collector.Models
         public int ZipCode { get; set; }
 
         [Display(Name = "Current Balance")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+
 
         public double CurrentBalance { get; set; } // monthly balance - how would this show past due balance for a new month?
 
@@ -43,7 +45,11 @@ namespace Trash_Collector.Models
         public PickUpDay PickUpDay { get; set; }
 
         [Display(Name = "Extra Pickup Date")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+
         public DateTime? ExtraPickUpDay { get; set; }
+        [NotMapped]
+        public string ExtraPickUpDayString { get; set; }
 
         [NotMapped]
         public DateTime? LastChargedDay {get; set;}
@@ -59,9 +65,13 @@ namespace Trash_Collector.Models
         public bool IsSuspended { get; set; }
 
         [Display(Name = "Suspension Start Date")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+
+        
         public DateTime? SuspendStartDate { get; set; }
 
         [Display(Name = "Suspension End Date")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? SuspendEndDate { get; set; }
 
 

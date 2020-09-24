@@ -39,11 +39,11 @@ namespace Trash_Collector.Controllers
             {
                 var customers = _context.Customers.Include(c => c.PickUpDay).ToList();
                 var customersInZipCode = customers.Where(c => c.ZipCode == employee.ZipCodeAssignment && c.ConfirmPickUp == false).ToList();
-                var todayString = DateTime.Now.DayOfWeek.ToString();
+                var dayOfWeekString = DateTime.Now.DayOfWeek.ToString();
+                var todayString = DateTime.Today.ToString();
                 var today = DateTime.Today;
-
-
-                var customersInZipAndToday = customersInZipCode.Where(c => c.PickUpDay.Date == todayString || c.ExtraPickUpDay == today).ToList();
+                SetExtraPickUpDayString(customersInZipCode);
+                var customersInZipAndToday = customersInZipCode.Where(c => c.PickUpDay.Date == dayOfWeekString || c.ExtraPickUpDayString == todayString).ToList();
                 var customersWithoutSuspends = customersInZipAndToday.Where(c => (c.SuspendStartDate == null && c.SuspendEndDate == null) || c.SuspendStartDate >= today || c.SuspendEndDate <= today).ToList();
 
                 return View(customersWithoutSuspends);
@@ -52,6 +52,22 @@ namespace Trash_Collector.Controllers
 
 
         }
+
+        private void SetExtraPickUpDayString(List<Customer> customers)
+        {
+            foreach(Customer customer in customers)
+            {
+                if(customer.ExtraPickUpDay.HasValue == true)
+                {
+                    var customerDateString = customer.ExtraPickUpDay.Value.Date.ToString();
+                    customer.ExtraPickUpDayString = customerDateString;
+
+                }
+                
+            }
+
+        }
+       
 
         // GET: EmployeeController/Filter - this action pulls up a view with a drop down selectlist to allow filtering by Pick Up Day
         public ActionResult Filter()
@@ -153,7 +169,7 @@ namespace Trash_Collector.Controllers
             {
                 if(customer.ConfirmPickUp == true)
                 {
-                    customer.CurrentBalance += 100;
+                    customer.CurrentBalance += 100.00;
                     customer.LastChargedDay = DateTime.Today;
                 }
                 _context.Update(customer);

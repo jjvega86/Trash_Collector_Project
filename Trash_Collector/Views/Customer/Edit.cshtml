@@ -4,13 +4,15 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Edit</h1>
-
-<h4>Customer</h4>
+<div class="row">
+    <div class="col-lg-12 text-lg-center">
+        <h1>Edit Profile and Choose Options</h1>
+    </div>
+</div>
+<br />
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
@@ -55,11 +57,7 @@
                 <input asp-for="ExtraPickUpDay" class="form-control" />
                 <span asp-validation-for="ExtraPickUpDay" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsSuspended" /> @Html.DisplayNameFor(model => model.IsSuspended)
-                </label>
-            </div>
+            <input type="hidden" asp-for="IsSuspended" />
             <div class="form-group">
                 <label asp-for="SuspendStartDate" class="control-label"></label>
                 <input asp-for="SuspendStartDate" class="form-control" />
@@ -74,14 +72,10 @@
 
 
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-outline-danger" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
