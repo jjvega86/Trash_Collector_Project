@@ -44,7 +44,8 @@ namespace Trash_Collector.Controllers
                 var today = DateTime.Today;
                 SetExtraPickUpDayString(customersInZipCode);
                 var customersInZipAndToday = customersInZipCode.Where(c => c.PickUpDay.Date == dayOfWeekString || c.ExtraPickUpDayString == todayString).ToList();
-                var customersWithoutSuspends = customersInZipAndToday.Where(c => (c.SuspendStartDate == null && c.SuspendEndDate == null) || c.SuspendStartDate >= today || c.SuspendEndDate <= today).ToList();
+                SetSuspensionDates(customersInZipAndToday);
+                var customersWithoutSuspends = customersInZipAndToday.Where(c => (c.SuspendStartDate == null && c.SuspendEndDate == null) || c.SuspendStartDate > today || c.SuspendEndDate < today).ToList();
 
                 return View(customersWithoutSuspends);
 
@@ -66,6 +67,22 @@ namespace Trash_Collector.Controllers
                 
             }
 
+        }
+
+        private void SetSuspensionDates(List<Customer> customers)
+        {
+            foreach(Customer customer in customers)
+            {
+                if(customer.SuspendStartDate.HasValue == true && customer.SuspendEndDate.HasValue == true)
+                {
+                    TimeSpan ts = new TimeSpan(0, 0, 0);
+                    var startTimeAdjust = customer.SuspendStartDate.Value.Date + ts;
+                    customer.SuspendStartDate = startTimeAdjust;
+                    var endTimeAdjust = customer.SuspendEndDate.Value.Date + ts;
+                    customer.SuspendEndDate = endTimeAdjust;
+                    
+                }
+            }
         }
        
 

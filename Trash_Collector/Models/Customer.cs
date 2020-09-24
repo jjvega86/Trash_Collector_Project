@@ -66,8 +66,6 @@ namespace Trash_Collector.Models
 
         [Display(Name = "Suspension Start Date")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
-
-        
         public DateTime? SuspendStartDate { get; set; }
 
         [Display(Name = "Suspension End Date")]
