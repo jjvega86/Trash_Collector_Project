@@ -29,6 +29,7 @@ namespace Trash_Collector.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = _context.Employees.Where(c => c.IdentityUserId == userId).SingleOrDefault();
             ResetPickUpDayConfirmation();
+            ResetCompletedSuspensions();
 
             if (employee == null)
             {
@@ -84,7 +85,40 @@ namespace Trash_Collector.Controllers
                 }
             }
         }
-       
+        private void ResetPickUpDayConfirmation()
+        {
+            var customers = _context.Customers.Include(m => m.PickUpDay).ToList();
+            DateTime today = DateTime.Today;
+            DateTime yesterday = today.AddDays(-1);
+
+            foreach (Customer customer in customers)
+            {
+                if (customer.LastChargedDay == yesterday)
+                {
+                    customer.ConfirmPickUp = false;
+                }
+            }
+        }
+
+        private void ResetCompletedSuspensions()
+        {
+            var customers = _context.Customers.Include(m => m.PickUpDay).ToList();
+            DateTime today = DateTime.Today;
+
+            SetSuspensionDates(customers);
+
+            foreach(Customer customer in customers)
+            {
+                if(customer.SuspendStartDate < today && customer.SuspendEndDate < today)
+                {
+                    customer.SuspendStartDate = null;
+                    customer.SuspendEndDate = null;
+                }
+
+            }
+
+        }
+
 
         // GET: EmployeeController/Filter - this action pulls up a view with a drop down selectlist to allow filtering by Pick Up Day
         public ActionResult Filter()
@@ -96,7 +130,7 @@ namespace Trash_Collector.Controllers
             var employee = _context.Employees.Where(c => c.IdentityUserId == userId).SingleOrDefault();
 
 
-            // find and attach indivual properties of the viewmodel
+            // find and attach individual properties of the viewmodel
 
             var customers = _context.Customers.Include(c => c.PickUpDay).ToList();
             customersList.Customers = customers.Where(c => c.ZipCode == employee.ZipCodeAssignment).ToList();
@@ -129,7 +163,7 @@ namespace Trash_Collector.Controllers
         { 
 
             CustomerAddress address = new CustomerAddress();
-            var locationService = new GoogleLocationService(apikey: "AIzaSyCb3d1Jb7e06yFVxKXS9EdB2O_ofBEarr0");
+            var locationService = new GoogleLocationService(apikey: "AIzaSyAQYRIzhk1DKMctGs1jiaYrvo1fBDm7b4Q");
             var customer = _context.Customers.Find(id);
 
             address.StreetAddress = customer.StreetAddress;
@@ -199,20 +233,7 @@ namespace Trash_Collector.Controllers
             }
         }
 
-        private void ResetPickUpDayConfirmation()
-        {
-            var customers = _context.Customers.Include(m => m.PickUpDay).ToList();
-            DateTime today = DateTime.Today;
-            DateTime yesterday = today.AddDays(-1);
-
-            foreach(Customer customer in customers)
-            {
-                if(customer.LastChargedDay == yesterday)
-                {
-                    customer.ConfirmPickUp = false;
-                }
-            }
-        }
+        
 
 
     }
